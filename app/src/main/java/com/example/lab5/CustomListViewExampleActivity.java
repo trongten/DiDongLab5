@@ -21,6 +21,10 @@ public class CustomListViewExampleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button button1  = findViewById(R.id.button);
+        Button button2  = findViewById(R.id.button2);
+        Button button3  = findViewById(R.id.button3);
+
         listView = (ListView) findViewById(R.id.idListView);
         listLanguage = new ArrayList<>();
         listLanguage.add(new Donut(R.drawable.donut_yellow, "Tasty Donut","Spicy tasty donut family","$10"));
@@ -31,7 +35,27 @@ public class CustomListViewExampleActivity extends AppCompatActivity {
         DonutAdapter adapter = new DonutAdapter(this, R.layout.item_custom_list_view, listLanguage);
         listView.setAdapter(adapter);
 
-
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adapter.nutAll();
+                adapter.setActiveButton(button1,button2,button3);
+            }
+        });
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adapter.nutPink();
+                adapter.setActiveButton(button2,button1,button3);
+            }
+        });
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adapter.nutFloating();
+                adapter.setActiveButton(button3,button1,button2);
+            }
+        });
 
 
 

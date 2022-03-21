@@ -7,12 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -21,18 +23,20 @@ public class DonutAdapter extends BaseAdapter{
     private Context context;
     private int idLayout;
     private List<Donut> listDonut;
+    private List<Donut> listLoc;
     private int positionSelect = -1;
 
     public DonutAdapter(Context context, int idLayout, List<Donut> listLanguage) {
         this.context = context;
         this.idLayout = idLayout;
         this.listDonut = listLanguage;
+        this.listLoc = listLanguage;
     }
 
     @Override
     public int getCount() {
-        if (listDonut.size() != 0 && !listDonut.isEmpty()) {
-            return listDonut.size();
+        if (listLoc.size() != 0 && !listLoc.isEmpty()) {
+            return listLoc.size();
         }
         return 0;
     }
@@ -59,9 +63,9 @@ public class DonutAdapter extends BaseAdapter{
         TextView tvDonutPrice = (TextView) convertView.findViewById(R.id.textView5);
 
         final LinearLayout linearLayout = (LinearLayout) convertView.findViewById(R.id.idLinearLayout);
-        final Donut donut = listDonut.get(position);
+        final Donut donut = listLoc.get(position);
 
-        if (listDonut != null && !listDonut.isEmpty()) {
+        if (listLoc != null && !listLoc.isEmpty()) {
             tvDonutName.setText(donut.getName());
             tvDonutDep.setText(donut.getDep());
             tvDonutPrice.setText(donut.getPrice());
@@ -90,5 +94,36 @@ public class DonutAdapter extends BaseAdapter{
 
         return convertView;
     }
+
+    public void loc(String x){
+        listLoc = new ArrayList<>();
+        for (Donut i : listDonut){
+            if(i.getName().toLowerCase().indexOf(x) != -1){
+                listLoc.add(i);
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    public  void nutPink(){
+        loc("pink");
+
+    }
+    public  void nutFloating(){
+        loc("floating");
+    }
+    public  void nutAll(){
+        listLoc=listDonut;
+        notifyDataSetChanged();
+    }
+    public void setActiveButton(Button buttonActive, Button btn1, Button btn2) {
+        buttonActive.setBackgroundResource(R.drawable.buttonpp);
+        buttonActive.setTextColor(Color.WHITE);
+        btn1.setBackgroundResource(R.drawable.button);
+        btn1.setTextColor(Color.BLACK);
+        btn2.setTextColor(Color.BLACK);
+        btn2.setBackgroundResource(R.drawable.button);
+    }
+
 
 }
